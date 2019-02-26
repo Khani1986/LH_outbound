@@ -573,6 +573,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
     double time;
     char buff[256];
     char *input = buff;
+    char *input2 = buff;
     float nms=.45;
     while(1){
         if(filename){
@@ -584,19 +585,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             if(!input) return;
             strtok(input, "\n");
         }
-        char string[] = filename;
-        char delimiter[] = "/";
-        char *ptr;
-        
-        // initialisieren und ersten Abschnitt erstellen
-        ptr = strtok(string, delimiter);
-
-        while(ptr != NULL) {
-	        //printf("Abschnitt gefunden: %s\n", ptr);
-	        // naechsten Abschnitt erstellen
- 	        ptr = strtok(NULL, delimiter);
-        }
-        printf("Filename: %s\n", ptr);
         
         image im = load_image_color(input,0,0);
         image sized = letterbox_image(im, net->w, net->h);
@@ -618,11 +606,33 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
         draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
         free_detections(dets, nboxes);
+	    
+	//GET FILE NAME IN ORDER TO CREATE Predition Filename
+        #include <stdio.h>
+	#include <string.h>
+	char delimiter[] = "/";
+        char *ptr;
+	char *save2file;
+	// initialisieren und ersten Abschnitt erstellen
+        //printf("Input: ",input);
+	ptr = strtok(input, delimiter);
+	//printf("Filename: ", filename);
+	//printf("ptr: ", ptr);
+
+        while(ptr != NULL) {
+	        //printf("Abschnitt gefunden: %s\n", ptr);
+	        // naechsten Abschnitt erstellen
+		save2file = ptr;
+ 	        ptr = strtok(NULL, delimiter);
+        }
+	save2file = strcat("predicted_", save2file);
+	save2file = strcpy(save2file, save2file);
+	printf(save2file);
         if(outfile){
             save_image(im, outfile);
         }
         else{
-            save_image(im, "predictions");
+            save_image(im, save2file);
 #ifdef OPENCV
             make_window("predictions", 512, 512, 0);
             show_image(im, "predictions", 0);
@@ -633,6 +643,23 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         free_image(sized);
         if (filename) break;
     }
+	//char string[] = filename;
+        char delimiter[] = "/";
+        char *ptr;
+	char *save2file;
+	// initialisieren und ersten Abschnitt erstellen
+        //printf("Input: ",input);
+	ptr = strtok(input, delimiter);
+	//printf("Filename: ", filename);
+	//printf("ptr: ", ptr);
+
+        while(ptr != NULL) {
+	        //printf("Abschnitt gefunden: %s\n", ptr);
+	        // naechsten Abschnitt erstellen
+		save2file = ptr;
+ 	        ptr = strtok(NULL, delimiter);
+        }
+        printf("Filename: %s\n", save2file);
 }
 
 /*
