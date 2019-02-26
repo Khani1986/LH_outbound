@@ -564,6 +564,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
     list *options = read_data_cfg(datacfg);
     char *name_list = option_find_str(options, "names", "data/names.list");
     char **names = get_labels(name_list);
+    
 
     image **alphabet = load_alphabet();
     network *net = load_network(cfgfile, weightfile, 0);
@@ -583,6 +584,20 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             if(!input) return;
             strtok(input, "\n");
         }
+        char string[] = filename;
+        char delimiter[] = "/";
+        char *ptr;
+        
+        // initialisieren und ersten Abschnitt erstellen
+        ptr = strtok(string, delimiter);
+
+        while(ptr != NULL) {
+	        //printf("Abschnitt gefunden: %s\n", ptr);
+	        // naechsten Abschnitt erstellen
+ 	        ptr = strtok(NULL, delimiter);
+        }
+        printf("Filename: %s\n", ptr);
+        
         image im = load_image_color(input,0,0);
         image sized = letterbox_image(im, net->w, net->h);
         //image sized = resize_image(im, net->w, net->h);
