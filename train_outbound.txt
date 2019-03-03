@@ -61,7 +61,6 @@
 /content/darknet/Dataset/Outbound_Check/IMG_0512.jpg
 /content/darknet/Dataset/Outbound_Check/IMG_0695.jpg
 /content/darknet/Dataset/Outbound_Check/IMG_0557.jpg
-/content/darknet/Dataset/Outbound_Check/Labels.jpg
 /content/darknet/Dataset/Outbound_Check/IMG_0526.jpg
 /content/darknet/Dataset/Outbound_Check/IMG_0613.jpg
 /content/darknet/Dataset/Outbound_Check/MHB_China_40.jpg
