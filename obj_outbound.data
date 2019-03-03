@@ -1,4 +1,4 @@
-classes = 5  
+classes = 6
 train = train_outbound.txt  
 valid = test_outbound.txt  
 names = obj_outbound.names  
